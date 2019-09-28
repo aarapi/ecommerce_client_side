@@ -26,12 +26,19 @@
 
  		<!-- Custom stlylesheet -->
  		<link type="text/css" rel="stylesheet" href="css/style.css"/>
-
+		<script>
+			if(localStorage.getItem("RESPONSE_DATA_USER") == null)
+			{
+				location.href = "index.html";
+			}
+		</script>
+		<script src="js/user/userLogout.js"></script>
 		<!-- HTML5 shim and Respond.js for IE8 support of HTML5 elements and media queries -->
 		<!-- WARNING: Respond.js doesn't work if you view the page via file:// -->
 		<!--[if lt IE 9]>
 		  <script src="https://oss.maxcdn.com/html5shiv/3.7.3/html5shiv.min.js"></script>
 		  <script src="https://oss.maxcdn.com/respond/1.4.2/respond.min.js"></script>
+
 		<![endif]-->
 
     </head>
@@ -48,7 +55,8 @@
 					</ul>
 					<ul class="header-links pull-right">
 						<li><a href="#"><i class="fa fa-dollar"></i> USD</a></li>
-						<li><a href="#"><i class="fa fa-user-o"></i> My Account</a></li>
+						<li><a href="#" id="accountName"> </a></li>
+						<li><button name="logout" id="signOut" onclick="logOut()"><i class="fa fa-sign-out"></i> LOGOUT</button></li>
 					</ul>
 				</div>
 			</div>
@@ -80,7 +88,7 @@
 										<option value="1">Category 02</option>
 									</select>
 									<input class="input" placeholder="Search here">
-									<button class="search-btn">Search</button>
+									<input type="button" onclick="productList()" value="Search" class="search-btn">
 								</form>
 							</div>
 						</div>
@@ -110,7 +118,7 @@
 										<div class="cart-list">
 											<div class="product-widget">
 												<div class="product-img">
-													<img src="img/product01.png" alt="">
+													<img id="prova-img" src="img/product01.png" alt="">
 												</div>
 												<div class="product-body">
 													<h3 class="product-name"><a href="#">product name goes here</a></h3>
@@ -198,10 +206,12 @@
 							<li><a href="#">All Categories</a></li>
 							<li><a href="#">Accessories</a></li>
 							<li class="active">Headphones (227,490 Results)</li>
+
 						</ul>
 					</div>
 				</div>
 				<!-- /row -->
+				<p id="responseData"></p>
 			</div>
 			<!-- /container -->
 		</div>
@@ -847,6 +857,8 @@
 		<script src="js/nouislider.min.js"></script>
 		<script src="js/jquery.zoom.min.js"></script>
 		<script src="js/main.js"></script>
+		<script src="js/store/store.js"></script>
+		<script src="js/product/productList.js"></script>
 
 	</body>
 </html>

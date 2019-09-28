@@ -3,8 +3,11 @@ function signInControl(){
 
 // Open a new connection, using the GET request on the URL endpoint
     request.open('POST', 'ecomm/user/userLogIn', true);
-    var email = document.getElementById("email").value;
-    var password = document.getElementById("password").value;
+    var emailInput = document.getElementById("email");
+    var passwordInput = document.getElementById("password");
+
+    var email = emailInput.value;
+    var password = passwordInput.value;
     request.setRequestHeader("Content-type", "application/x-www-form-urlencoded");
 
     request.onload = function() {
@@ -12,8 +15,13 @@ function signInControl(){
         var response = JSON.parse(this.responseText);
         if(response.responseCode == "0")
         {
+            emailInput.value = "";
+            emailInput.onfocus;
+            passwordInput.value = "";
             document.getElementById("response").innerHTML = "<i  class='fas fa-info'></i>" + "   "+ response.responseMessage;
         }else{
+            localStorage.setItem("RESPONSE_DATA_USER", response.responseData);
+
             location.href = "store.html";
         }
 
