@@ -17,11 +17,10 @@ public class ProductController {
     @POST
     @Path("productList")
     @Produces(MediaType.APPLICATION_JSON)
-    public String getProductList(@FormParam("OFFSET") int offset, @FormParam("PAGE_NUMBER") int pageNumber)
+    public String getProductList(@FormParam("PAGE_NUMBER") int pageNumber)
     {
         Gson gson = new Gson();
-        ProductList productList =new ProductList(offset, pageNumber);
-        String responseData = RemoteService.call(Paths.ECOMMERCE_PRODUCTS, gson.toJson(productList));
+        String responseData = RemoteService.call(Paths.ECOMMERCE_PRODUCTS, gson.toJson(pageNumber, Integer.class));
 
         return responseData;
     }
