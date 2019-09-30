@@ -25,24 +25,8 @@ function productDetailsRender() {
     var productDetails = responseProdCat[0];
     var productCategory = responseProdCat[1];
     console.log(responseProdCat);
-    var row = document.getElementById("rowDetails").innerHTML =  "<!-- Product main img -->\n" +
-        "            <div class=\"col-md-5 col-md-push-2\">\n" +
-        "                <div id=\"product-main-img\">\n" +
-        "                    <div class=\"product-preview\">\n" +
-        "                        <img src=\"img/productsImages/"+productDetails.photo+"\" alt=\"\">\n" +
-        "                    </div>\n" +
-        "\n" +
-        "                    <div class=\"product-preview\">\n" +
-        "                        <img src=\"img/product03.png\" alt=\"\">\n" +
-        "                    </div>\n" +
-        "\n" +
-        "                    <div class=\"product-preview\">\n" +
-        "                        <img src=\"img/product06.png\" alt=\"\">\n" +
-        "                    </div>\n" +
-        "\n" +
-        "                    <div class=\"product-preview\">\n" +
-        "                        <img src=\"img/product08.png\" alt=\"\">\n" +
-        "                    </div>\n" +
+    var row = document.getElementById("rowDetails").innerHTML =  " <div class=\"col-md-5 col-md-push-2\">\n" +
+        "                <div id=\"product-main-img\">\n"+
         "                </div>\n" +
         "            </div>\n" +
         "            <!-- /Product main img -->\n" +
@@ -50,21 +34,6 @@ function productDetailsRender() {
         "            <!-- Product thumb imgs -->\n" +
         "            <div class=\"col-md-2  col-md-pull-5\">\n" +
         "                <div id=\"product-imgs\">\n" +
-        "                    <div class=\"product-preview\">\n" +
-        "                        <img src=\"img/product01.png\" alt=\"\">\n" +
-        "                    </div>\n" +
-        "\n" +
-        "                    <div class=\"product-preview\">\n" +
-        "                        <img src=\"img/product03.png\" alt=\"\">\n" +
-        "                    </div>\n" +
-        "\n" +
-        "                    <div class=\"product-preview\">\n" +
-        "                        <img src=\"img/product06.png\" alt=\"\">\n" +
-        "                    </div>\n" +
-        "\n" +
-        "                    <div class=\"product-preview\">\n" +
-        "                        <img src=\"img/product08.png\" alt=\"\">\n" +
-        "                    </div>\n" +
         "                </div>\n" +
         "            </div>\n" +
         "            <!-- /Product thumb imgs -->\n" +
@@ -84,7 +53,7 @@ function productDetailsRender() {
         "                        <a class=\"review-link\" href=\"#\">10 Review(s) | Add your review</a>\n" +
         "                    </div>\n" +
         "                    <div>\n" +
-        "                        <h3 class=\"product-price\">$980.00 <del class=\"product-old-price\">$990.00</del></h3>\n" +
+        "                        <h3 class=\"product-price\">"+productDetails.price+" ALL"+" <del class=\"product-old-price\">"+(productDetails.price+50)+" ALL"+"</del></h3>\n" +
         "                        <span class=\"product-available\">In Stock</span>\n" +
         "                    </div>\n" +
         "                    <p>"+productDetails.description+"</p>\n" +
@@ -132,5 +101,27 @@ function productDetailsRender() {
         "\n" +
         "                </div>\n" +
         "            </div>\n";
+    var imgSrc = "";
+    var numberOfPhotos = productDetails.photo.split(":").length - 1;
+    if (numberOfPhotos == 0)
+    {
+        numberOfPhotos =1;
+    }
+
+    for(var i=0; i <numberOfPhotos; i++)
+    {
+        imgSrc+="<div class=\"product-preview\">\n" +
+            "\t\t\t\t\t\t\t\t<img src=\"img/productsImages/" + productDetails.photo + "\" alt=\"\">\n" +
+            "\t\t\t\t\t\t\t</div>";
+    }
+    var mainImg = document.getElementById("product-main-img").innerHTML = imgSrc;
+    var slideImg = document.getElementById("product-imgs").innerHTML = imgSrc;
+
+
+
+
+
+
+
 
 }

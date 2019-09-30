@@ -108,15 +108,16 @@ function productListFiltered(){
             var row = document.getElementById("productsRow");
             row.innerHTML = "";
             for( var i=0; i<products.length; i++){
-
+                var imgSrc = products[i].photo.toString().substring(0, products[i].photo.toString().indexOf(":"));
+                console.log(imgSrc);
                 var div = document.createElement("span");
                 div.innerHTML = "<div class=\"col-md-4 col-xs-6\">\n" +
                     "\t\t\t\t\t\t\t\t<div class=\"product\">\n" +
                     "\t\t\t\t\t\t\t\t\t<div class=\"product-img\">\n" +
-                    "\t\t\t\t\t\t\t\t\t\t<a onclick=\"productDetails("+i+")\"> <img width=\"100%\" height=\"230px\" src=\"img/productsImages/"+products[i].photo+"\" alt=\"\">\n" +
+                    "\t\t\t\t\t\t\t\t\t\t<a onclick=\"productDetails("+i+")\"> <img width=\"100%\" height=\"230px\" src=\"img/productsImages/"+lkkasimgSrc+"\" alt=\"\">\n" +
                     "\t\t\t\t\t\t\t\t\t</div><input type=\"hidden\" id=\"productId"+i +"\" value="+products[i].id+">\n" +
                     "\t\t\t\t\t\t\t\t\t<div class=\"product-body\">\n" +
-                    "\t\t\t\t\t\t\t\t\t\t<h3 class=\"product-name\"><a href=\"#\">"+ products[i].productName.substring(0, 25)+"</a></h3>\n" +
+                    "\t\t\t\t\t\t\t\t\t\t<h3 class=\"product-name\"><a href=\"#\">"+ products[i].productName+"</a></h3>\n" +
                     "\t\t\t\t\t\t\t\t\t\t<h4 class=\"product-price\">"+products[i].price +" ALL <del class=\"product-old-price\">$990.00</del></h4>\n" +
                     "\t\t\t\t\t\t\t\t\t\t<div class=\"product-rating\">\n" +
                     "\t\t\t\t\t\t\t\t\t\t\t<i class=\"fa fa-star\"></i>\n" +
