@@ -24,7 +24,7 @@ function productDetailsRender() {
     responseProdCat = JSON.parse(responseProdCat);
     var productDetails = responseProdCat[0];
     var productCategory = responseProdCat[1];
-    console.log(responseProdCat);
+
     var row = document.getElementById("rowDetails").innerHTML =  " <div class=\"col-md-5 col-md-push-2\">\n" +
         "                <div id=\"product-main-img\">\n"+
         "                </div>\n" +
@@ -101,27 +101,81 @@ function productDetailsRender() {
         "\n" +
         "                </div>\n" +
         "            </div>\n";
-    var imgSrc = "";
-    var numberOfPhotos = productDetails.photo.split(":").length - 1;
+
+    var numberOfPhotos = productDetails.photo.split(":").length;
     if (numberOfPhotos == 0)
     {
         numberOfPhotos =1;
     }
-
+    var position =0;
+    var imgSrc = "";
     for(var i=0; i <numberOfPhotos; i++)
     {
+        if(productDetails.photo.indexOf(":") == -1)
+        {
+            var imgUrl = productDetails.photo;
+        }
+        else
+        {
+            var imgUrl = productDetails.photo.substring(position, productDetails.photo.indexOf(":"));
+            position = productDetails.photo.indexOf(":")+1;
+            productDetails.photo = productDetails.photo.substring(productDetails.photo.indexOf(":")+1);
+        }
         imgSrc+="<div class=\"product-preview\">\n" +
-            "\t\t\t\t\t\t\t\t<img src=\"img/productsImages/" + productDetails.photo + "\" alt=\"\">\n" +
+            "\t\t\t\t\t\t\t\t<img src=\"img/productsImages/" + imgUrl + "\" alt=\"\">\n" +
             "\t\t\t\t\t\t\t</div>";
+
     }
     var mainImg = document.getElementById("product-main-img").innerHTML = imgSrc;
     var slideImg = document.getElementById("product-imgs").innerHTML = imgSrc;
 
 
 
+}
 
 
+function renderRelatedProducts() {
+    var responseProdCat = localStorage.getItem("PRODUCT_DETAILS");
+    responseProdCat = JSON.parse(responseProdCat);
 
+    var relatedProducts = responseProdCat[2];
 
+    var relatedString ="";
+    for(var i = 0; i<4; i++) {
+        var imgUrl ="";
+        if(relatedProducts[i].photo.indexOf(":") == -1)
+        {
+             imgUrl = relatedProducts[i].photo;
+        }
+        else
+        {
+             imgUrl = relatedProducts[i].photo.substring(0, relatedProducts[i].photo.indexOf(":"));
+            }
+        relatedString = relatedString + "  <div class=\"col-md-3 col-xs-6\">\n" +
+            "                <div class=\"product\">\n" +
+            "<a onclick=\"productDetails("+i+")\">" +
+            "<input type=\"hidden\" id=\"productId"+i +"\" value="+relatedProducts[i].id+">" +
+            "                    <div class=\"product-img\">\n" +
+            "                        <img src=\"img/productsImages/"+imgUrl+"\" alt=\"\">\n" +
+            "                        <div class=\"product-label\">\n" +
+            "                            <span class=\"sale\">-30%</span>\n" +
+            "                        </div>\n" +
+            "                    </div>\n" +
+            "                    <div class=\"product-body\">\n" +
+            "                        <p class=\"product-category\">"+responseProdCat[1].name+"</p>\n" +
+            "                        <h3 class=\"product-name\"><a href=\"#\">"+relatedProducts[i].productName+"</a></h3>\n" +
+            "                        <h4 class=\"product-price\">"+relatedProducts[i].price +" ALL"+" <del class=\"product-old-price\">"+(relatedProducts[i].price +500)+" ALL"+"</del></h4>\n" +
+            "                        <div class=\"product-rating\">\n" +
+            "                        </div>\n" +
+            "                       \n" +
+            "                    </div>\n" +
+            "                    <div class=\"add-to-cart\">\n" +
+            "                        <button class=\"add-to-cart-btn\"><i class=\"fa fa-shopping-cart\"></i> add to cart</button>\n" +
+            "                    </div></a>\n" +
+            "                </div>\n" +
+            "            </div>";
+    }
+
+    document.getElementById("relatedProducts").innerHTML = relatedString;
 
 }

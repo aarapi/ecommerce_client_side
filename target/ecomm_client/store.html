@@ -26,6 +26,7 @@
 
 	<!-- Custom stlylesheet -->
 	<link type="text/css" rel="stylesheet" href="css/style.css"/>
+	<link type="text/css" rel="stylesheet" href="css/dropdownOnhover.css"/>
 	<script>
 		if(localStorage.getItem("RESPONSE_DATA_USER") == null)
 		{
@@ -88,8 +89,8 @@
 								<option value="1">Category 01</option>
 								<option value="1">Category 02</option>
 							</select>
-							<input class="input" placeholder="Search here">
-							<input type="button" onclick="productList()" value="Search" class="search-btn">
+							<input type="text" required class="input" id="inputSrch" placeholder="Search here">
+							<input type="button" onclick="searchProducts()" value="Search" class="search-btn">
 						</form>
 					</div>
 				</div>
@@ -181,7 +182,20 @@
 			<ul class="main-nav nav navbar-nav">
 				<li class="active"><a href="#">Home</a></li>
 				<li><a href="#">Hot Deals</a></li>
-				<li><a href="#">Categories</a></li>
+				<li>
+
+					<span class="dropdown">
+						<a href="#"  class="dropbtn">Categories  <i class="fa fa-caret-down"></i></a>
+
+						<div class="dropdown-content">
+							<a href="#">Link 1</a>
+							<a href="#">Link 2</a>
+							<a href="#">Link 3</a>
+						</div>
+				</span>
+
+				</li>
+
 				<li><a href="#">Laptops</a></li>
 				<li><a href="#">Smartphones</a></li>
 				<li><a href="#">Cameras</a></li>
@@ -542,6 +556,7 @@
 <script src="js/store/store.js"></script>
 <script src="js/product/productList.js"></script>
 <script src="js/product/productDetails.js"></script>
+<script src="js/search/search.js"></script>
 
 
 </body>

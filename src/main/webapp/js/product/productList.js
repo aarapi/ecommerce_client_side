@@ -1,7 +1,8 @@
 
 function productList(i){
     var request = new XMLHttpRequest()
-
+var inputSrch = localStorage.getItem("searchProducts");
+    localStorage.removeItem("searchProducts");
 // Open a new connection, using the GET request on the URL endpoint
     request.open('POST', 'ecomm/product/productList', true);
 
@@ -16,17 +17,23 @@ function productList(i){
 
             //console.log(response.responseData);
             var products = JSON.parse(response.responseData);
-            console.log(response.responseData);
+           // console.log(response.responseData);
             var rowsDatabase = response.responseCode;
             var row = document.getElementById("productsRow");
             row.innerHTML = "";
             for( var i=0; i<products.length; i++){
+                if(products[i].photo.indexOf(":") == -1)
+                {
+                    var imgSrc = products[i].photo;
+                }else {
+                    var imgSrc = products[i].photo.substring(0, products[i].photo.indexOf(":"));
+                }
 
                 var div = document.createElement("span");
                 div.innerHTML = "<div class=\"col-md-4 col-xs-6\">\n" +
                     "\t\t\t\t\t\t\t\t<div class=\"product\">\n" +
                     "\t\t\t\t\t\t\t\t\t<div class=\"product-img\">\n" +
-                    "\t\t\t\t\t\t\t\t\t\t<a onclick=\"productDetails("+i+")\"> <img width=\"100%\" height=\"230px\" src=\"img/productsImages/"+products[i].photo+"\" alt=\"\">\n" +
+                    "\t\t\t\t\t\t\t\t\t\t<a onclick=\"productDetails("+i+")\"> <img width=\"100%\" height=\"230px\" src=\"img/productsImages/"+imgSrc+"\" alt=\"\">\n" +
                     "\t\t\t\t\t\t\t\t\t</div><input type=\"hidden\" id=\"productId"+i +"\" value="+products[i].id+">\n" +
                     "\t\t\t\t\t\t\t\t\t<div class=\"product-body\">\n" +
                     "\t\t\t\t\t\t\t\t\t\t<h3 class=\"product-name\"><a href=\"#\">"+ products[i].productName.substring(0, 25)+"</a></h3>\n" +
@@ -45,7 +52,7 @@ function productList(i){
                     "\t\t\t\t\t\t\t\t\t\t</div>\n" +
                     "\t\t\t\t\t\t\t\t\t</div>\n" +
                     "\t\t\t\t\t\t\t\t\t<div class=\"add-to-cart\">\n" +
-                    "\t\t\t\t\t\t\t\t\t\t<button class=\"add-to-cart-btn\"><i class=\"fa fa-shopping-cart\"></i> add to cart</button>\n" +
+                    "\t\t\t\t\t\t\t\t\t\t<button onclick=\"addToCart("+i+")\" class=\"add-to-cart-btn\"><i class=\"fa fa-shopping-cart\"></i> add to cart</button>\n" +
                     "\t\t\t\t\t\t\t\t\t</div>\n" +
                     "\t\t\t\t\t\t\t\t</div>\n" +
                     "\t\t\t\t\t\t\t</div>"
@@ -76,8 +83,11 @@ function productList(i){
         }
 
     }
-
-    request.send("PAGE_NUMBER="+i);
+if(inputSrch == null) {
+    request.send("PAGE_NUMBER=" + i+ "&INPUT_SEARCH=");
+}else{
+    request.send("PAGE_NUMBER=" + i+ "&INPUT_SEARCH="+inputSrch);
+}
 }
 
 
@@ -103,18 +113,23 @@ function productListFiltered(){
 
             //console.log(response.responseData);
             var products = JSON.parse(response.responseData);
-            console.log(response.responseData);
+           // console.log(response.responseData);
 
             var row = document.getElementById("productsRow");
             row.innerHTML = "";
             for( var i=0; i<products.length; i++){
-                var imgSrc = products[i].photo.toString().substring(0, products[i].photo.toString().indexOf(":"));
-                console.log(imgSrc);
+                if(products[i].photo.indexOf(":") == -1)
+                {
+                    var imgSrc = products[i].photo;
+                }else {
+                    var imgSrc = products[i].photo.substring(0, products[i].photo.indexOf(":"));
+                }
+                //console.log(imgSrc);
                 var div = document.createElement("span");
                 div.innerHTML = "<div class=\"col-md-4 col-xs-6\">\n" +
                     "\t\t\t\t\t\t\t\t<div class=\"product\">\n" +
                     "\t\t\t\t\t\t\t\t\t<div class=\"product-img\">\n" +
-                    "\t\t\t\t\t\t\t\t\t\t<a onclick=\"productDetails("+i+")\"> <img width=\"100%\" height=\"230px\" src=\"img/productsImages/"+lkkasimgSrc+"\" alt=\"\">\n" +
+                    "\t\t\t\t\t\t\t\t\t\t<a onclick=\"productDetails("+i+")\"> <img width=\"100%\" height=\"230px\" src=\"img/productsImages/"+imgSrc+"\" alt=\"\">\n" +
                     "\t\t\t\t\t\t\t\t\t</div><input type=\"hidden\" id=\"productId"+i +"\" value="+products[i].id+">\n" +
                     "\t\t\t\t\t\t\t\t\t<div class=\"product-body\">\n" +
                     "\t\t\t\t\t\t\t\t\t\t<h3 class=\"product-name\"><a href=\"#\">"+ products[i].productName+"</a></h3>\n" +
@@ -149,6 +164,11 @@ function productListFiltered(){
 
 
     request.send("PAGE_NUMBER="+2);
+}
+
+function addToCart(i) {
+    var productId = document.getElementById("productId"+i).value;
+    
 }
 
 

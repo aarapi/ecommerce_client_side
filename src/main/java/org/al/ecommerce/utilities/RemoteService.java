@@ -15,7 +15,7 @@ public class RemoteService {
     {
         try{
 
-            String url = "http://192.168.1.8:8089/ecommerce/"+nameOfService;
+            String url = "http://localhost:8089/ecommerce/"+nameOfService;
             URL obj = new URL(url);
             HttpURLConnection con = (HttpURLConnection) obj.openConnection();
 

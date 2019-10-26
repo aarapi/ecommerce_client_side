@@ -1,4 +1,8 @@
 function signInControl(){
+
+    document.getElementById("spinnerLoading").style.display = "block";
+    document.getElementById("signin").disabled = true;
+
     var request = new XMLHttpRequest()
 
 // Open a new connection, using the GET request on the URL endpoint
@@ -19,6 +23,9 @@ function signInControl(){
             emailInput.onfocus;
             passwordInput.value = "";
             document.getElementById("response").innerHTML = "<i  class='fas fa-info'></i>" + "   "+ response.responseMessage;
+            document.getElementById("spinnerLoading").style.display = "none";
+            document.getElementById("signin").disabled = false;
+
         }else{
             localStorage.setItem("RESPONSE_DATA_USER", response.responseData);
 
